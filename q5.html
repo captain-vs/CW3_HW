@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    Customer Name: <input type="text" id="custName" /><br />
+    Product Name: <input type="text" id="orderProd" /><br />
+    Address: <input type="text" id="address" /><br />
+    <button id="b1">Place Order</button>
+
+    <script>
+      const b1 = document.getElementById("b1");
+
+      b1.addEventListener("click", () => {
+        const customer = document.getElementById("custName").value;
+        const product = document.getElementById("orderProd").value;
+        const address = document.getElementById("address").value;
+
+        const customerReg = /^[A-Za-z\s]{2,}$/;
+
+        const productReg = /^(laptop|mouse|keyboard|monitor)$/i;
+
+        if (customer === "" || !customerReg.test(customer)) {
+          alert(
+            "Customer Name is not empty and contains only alphabetic characters!",
+          );
+        } else if (!productReg.test(product)) {
+          alert("Product must match one of the available products!");
+        } else if (address === "") {
+          alert("Address is not empty!");
+        } else {
+          alert("OK");
+          localStorage.setItem("orderCustomer", customer);
+          localStorage.setItem("orderProduct", product);
+          localStorage.setItem("orderAddress", address);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="b1">Add to Cart</button>
+    <button id="resetCart">Reset Cart</button>
+
+    <script>
+      const b1 = document.getElementById("b1");
+
+      b1.addEventListener("click", () => {
+        let count = localStorage.getItem("cartCount");
+        if (!count) {
+          count = 0;
+        }
+
+        count = parseInt(count) + 1;
+
+        localStorage.setItem("cartCount", count);
+
+        alert("Items in cart: " + count);
+      });
+
+      const resetCart = document.getElementById("resetCart");
+
+      resetCart.addEventListener("click", () => {
+        localStorage.removeItem("cartCount");
+
+        alert("Cart has been reset to 0!");
+      });
+    </script>
+  </body>
+</html>

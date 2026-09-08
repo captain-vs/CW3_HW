@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    Product Name: <input type="text" id="pName" /><br />
+    Price: <input type="text" id="Price" /><br />
+    Quantity: <input type="text" id="Quantity" /><br />
+    <button id="b1">Submit Product</button>
+
+    <div id="displayContainer"></div>
+    <script>
+      const b1 = document.getElementById("b1");
+
+      b1.addEventListener("click", () => {
+        const name = document.getElementById("pName").value;
+        const price = document.getElementById("Price").value;
+        const quantity = document.getElementById("Quantity").value;
+        const container = document.getElementById("displayContainer");
+
+        const nameReg = /^[A-Za-z\s]{1,}$/;
+        const priceReg = /^[0-9]+$/;
+        const quantityReg = /^[0-9]+$/;
+        if (name === "" || !nameReg.test(name)) {
+          alert("Product Name should not be empty and must be text!");
+        } else if (price <= 0 || !priceReg.test(price)) {
+          alert("Price should be a positive number!");
+        } else if (quantity <= 0 || !quantityReg.test(quantity)) {
+          alert("Quantity should be a numeric value greater than 0!");
+        } else {
+          alert("OK");
+          localStorage.setItem("savedProductName", name);
+          localStorage.setItem("savedProductPrice", price);
+          localStorage.setItem("savedProductQty", quantity);
+
+          const p = document.createElement("p");
+          p.textContent =
+            "Product: " + name + " | Price: $" + price + " | Qty: " + quantity;
+          container.append(p);
+        }
+      });
+    </script>
+  </body>
+</html>
