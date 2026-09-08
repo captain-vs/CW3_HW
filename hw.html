@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    Product Name: <input type="text" id="pName" /><br /><br />
+    Price: <input type="text" id="pPrice" /><br /><br />
+
+    Category:
+    <select id="pCategory">
+      <option value="electronic">Electronic</option>
+      <option value="Food">Food</option>
+      <option value="home">Home</option>
+      <option value="other">Other</option></select
+    ><br /><br />
+
+    <button id="b1">Submit Product</button>
+
+    <h4>Product List by Category</h4>
+    <div id="displayContainer"></div>
+
+    <script>
+      const b1 = document.getElementById("b1");
+
+      b1.addEventListener("click", () => {
+        const name = document.getElementById("pName").value.trim();
+        const price = document.getElementById("pPrice").value.trim();
+        const category = document.getElementById("pCategory").value;
+        const container = document.getElementById("displayContainer");
+
+        const nameReg = /^[A-Za-z\s]{1,}$/;
+        const priceReg = /^[0-9]+$/;
+
+        if (name === "" || !nameReg.test(name)) {
+          alert("Product Name should not be empty and must be text!");
+        } else if (price <= 0 || !priceReg.test(price)) {
+          alert("Price should be a positive number!");
+        } else {
+          alert("OK");
+
+          localStorage.setItem(
+            category,
+            "Item: " + name + " - Price: $" + price,
+          );
+
+          const p = document.createElement("p");
+          p.textContent =
+            "[" + category.toUpperCase() + "] " + name + " ($" + price + ")";
+          container.append(p);
+
+          document.getElementById("pName").value = "";
+          document.getElementById("pPrice").value = "";
+        }
+      });
+    </script>
+  </body>
+</html>
